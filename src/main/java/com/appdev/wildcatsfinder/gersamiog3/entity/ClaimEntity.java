@@ -1,8 +1,6 @@
 package com.appdev.wildcatsfinder.gersamiog3.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 
 @Entity
@@ -11,7 +9,7 @@ public class ClaimEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "claim_id")
+  @Column(name = "cid")
   private int cid;
 
   @Column(name = "claim_date", nullable = false)
@@ -21,43 +19,42 @@ public class ClaimEntity {
   @Column(name = "status", nullable = false, length = 32)
   private ClaimStatus status;
 
+  // ✅ Use Integer (wrapper), not primitive int
   @Column(name = "found_itemid")
-  private int foundItemId;
+  private Integer foundItemId;
 
   @Column(name = "verified", nullable = false)
   private boolean verified = false;
 
-  // getters & setters
-
-  public int getId() { 
-    return cid; 
-}
-  public void setId(int cid) {
-    this.cid = cid; 
-}
+  // getters/setters (note Integer types)
+  public int getCid() { 
+  return cid; 
+ }
+  public void setCid(int cid) { 
+  this.cid = cid; 
+ }
   public LocalDate getClaimDate() { 
-    return claimDate; 
-}
-  public void setClaimDate(LocalDate claimDate) {
-    this.claimDate = claimDate; 
-}
+  return claimDate; 
+ }
+  public void setClaimDate(LocalDate claimDate) { 
+  this.claimDate = claimDate; 
+ }
   public ClaimStatus getStatus() { 
-    return status; 
-}
-  public void setStatus(ClaimStatus status) {
-    this.status = status; 
-}
-  public int getFoundItemId() { 
-    return foundItemId; 
-}
-  public void setFoundItemId(Long foundItemId) {
-    this.foundItemId = foundItemId; 
-}
-
+  return status; 
+ }
+  public void setStatus(ClaimStatus status) { 
+  this.status = status; 
+ }
+  public Integer getFoundItemId() { 
+  return foundItemId; 
+ }
+  public void setFoundItemId(Integer foundItemId) { 
+  this.foundItemId = foundItemId; 
+ }
   public boolean isVerified() { 
-    return verified; 
-}
-  public void setVerified(boolean verified) {
-    this.verified = verified; 
-}
+  return verified; 
+  }
+  public void setVerified(boolean verified) { 
+  this.verified = verified; 
+  }
 }

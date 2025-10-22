@@ -2,7 +2,7 @@ package com.appdev.wildcatsfinder.gersamiog3.service;
 
 import com.appdev.wildcatsfinder.gersamiog3.entity.ClaimEntity;
 import com.appdev.wildcatsfinder.gersamiog3.repository.ClaimRepository;
-import org.springframework.beans.factory.annotation.Autowired;  
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class ClaimService {
 
+  private final ClaimRepository crepo;
+
   @Autowired
-  private ClaimRepository crepo;
+  public ClaimService(ClaimRepository crepo) {
+    this.crepo = crepo;
+  }
 
   public ClaimEntity create(ClaimEntity claim) {
     return crepo.save(claim);
@@ -22,15 +26,15 @@ public class ClaimService {
   }
 
   public ClaimEntity findById(int cid) {
-    return crepo.findById(cid)
-        .orElseThrow(() -> new RuntimeException("Claim not found"));
+    // autoboxes int -> Integer once ClaimRepository uses Integer
+    return crepo.findById(cid).orElseThrow(() -> new RuntimeException("Claim not found"));
   }
 
   public ClaimEntity updateClaim(int cid, ClaimEntity from) {
     ClaimEntity claim = findById(cid);
     claim.setClaimDate(from.getClaimDate());
     claim.setStatus(from.getStatus());
-    claim.setFoundItemId(from.getFoundItemId());
+    claim.setFoundItemId(from.getFoundItemId()); // both are Integer now
     claim.setVerified(from.isVerified());
     return crepo.save(claim);
   }
