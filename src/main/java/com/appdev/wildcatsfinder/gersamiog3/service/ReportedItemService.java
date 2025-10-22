@@ -2,36 +2,22 @@ package com.appdev.wildcatsfinder.gersamiog3.service;
 
 import com.appdev.wildcatsfinder.gersamiog3.entity.ReportedItemEntity;
 import com.appdev.wildcatsfinder.gersamiog3.repository.ReportedItemRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
 public class ReportedItemService {
-
   private final ReportedItemRepository repo;
 
-  public ReportedItemService(ReportedItemRepository repo) {
-    this.repo = repo;
-  }
+  @Autowired
+  public ReportedItemService(ReportedItemRepository repo) { this.repo = repo; }
 
-  // CREATE
-  public ReportedItemEntity create(ReportedItemEntity item) {
-    return repo.save(item);
-  }
-
-  // READ (all)
-  public List<ReportedItemEntity> findAll() {
-    return repo.findAll();
-  }
-
-  // READ (one)
+  public ReportedItemEntity create(ReportedItemEntity item) { return repo.save(item); }
+  public List<ReportedItemEntity> findAll() { return repo.findAll(); }
   public ReportedItemEntity findById(int rid) {
-    return repo.findById(rid)
-      .orElseThrow(() -> new RuntimeException("Reported item not found"));
+    return repo.findById(rid).orElseThrow(() -> new RuntimeException("Reported item not found"));
   }
-
-  // UPDATE
   public ReportedItemEntity updateReportedItem(int rid, ReportedItemEntity from) {
     ReportedItemEntity item = findById(rid);
     item.setStatus(from.getStatus());
@@ -45,9 +31,5 @@ public class ReportedItemService {
     item.setCatDescription(from.getCatDescription());
     return repo.save(item);
   }
-
-  // DELETE
-  public void delete(int rid) {
-    repo.deleteById(rid);
-  }
+  public void delete(int rid) { repo.deleteById(rid); }
 }
